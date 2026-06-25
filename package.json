@@ -1,0 +1,12 @@
+{
+  "name": "mrtviewer",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "serve": "python3 -m http.server 8080",
+    "fetch-mrt": "python3 scripts/fetch_mrt.py",
+    "dev": "python3 -m http.server 8080"
+  },
+  "note": "CDN importmap 方式のため npm install 不要。npm run serve でサーバー起動。"
+}

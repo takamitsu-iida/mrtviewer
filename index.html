@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BGP Tree Rings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three":           "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
+      "three/addons/":   "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/",
+      "d3-force-3d":     "https://esm.sh/d3-force-3d@3.0.5"
+    }
+  }
+  </script>
+  <style>
+    /* 年輪ページ専用の追加スタイル */
+    #hud .center-as {
+      font-size: 1.1rem;
+      color: #ffffff;
+      text-shadow: 0 0 16px #ffffffaa;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+    #ring-stats {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: #224466;
+      text-align: right;
+      pointer-events: none;
+      line-height: 1.9;
+    }
+    #ring-stats .val { color: #4499ff; }
+  </style>
+</head>
+<body>
+  <!-- ローディング画面 -->
+  <div id="loading">
+    <div class="loading-title">◉ TREE RINGS</div>
+    <div class="loading-subtitle">インターネット年輪 — AS の視点から世界を見る</div>
+    <div class="loading-spinner"></div>
+    <div id="status-msg">初期化中...</div>
+    <div id="status-detail"></div>
+  </div>
+
+  <!-- HUD：左上 -->
+  <div id="hud">
+    <div class="center-as" id="stat-center">AS——</div>
+    <div class="hud-row"><span class="hud-label">到達 AS 数</span><span id="stat-nodes">—</span></div>
+    <div class="hud-row"><span class="hud-label">最大ホップ</span><span id="stat-hops">—</span></div>
+    <div class="hud-row"><span class="hud-label">直接ピア</span><span id="stat-hop1">—</span></div>
+    <div class="hud-row"><span class="hud-label">2 ホップ先</span><span id="stat-hop2">—</span></div>
+    <div class="hud-row"><span class="hud-label">データソース</span><span class="hud-value-small">RIPE RIS rrc00</span></div>
+  </div>
+
+  <!-- リング統計：右上 -->
+  <div id="ring-stats">
+    <div>RIPE NCC &nbsp;<span class="val" id="cnt-ripe">—</span> AS</div>
+    <div>ARIN &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="val" id="cnt-arin">—</span> AS</div>
+    <div>APNIC &nbsp;&nbsp;&nbsp;&nbsp;<span class="val" id="cnt-apnic">—</span> AS</div>
+    <div>LACNIC &nbsp;&nbsp;&nbsp;<span class="val" id="cnt-lacnic">—</span> AS</div>
+    <div>AFRINIC &nbsp;&nbsp;<span class="val" id="cnt-afrinic">—</span> AS</div>
+  </div>
+
+  <!-- 凡例：左下 -->
+  <div id="legend">
+    <div class="legend-title">RIR 地域 / セクター</div>
+    <div class="legend-item"><span class="dot" style="background:#4499ff"></span>RIPE NCC（欧州・中東）</div>
+    <div class="legend-item"><span class="dot" style="background:#ff6633"></span>ARIN（北米）</div>
+    <div class="legend-item"><span class="dot" style="background:#44ffcc"></span>APNIC（アジア太平洋）</div>
+    <div class="legend-item"><span class="dot" style="background:#cc44ff"></span>LACNIC（中南米）</div>
+    <div class="legend-item"><span class="dot" style="background:#ffdd33"></span>AFRINIC（アフリカ）</div>
+    <div class="legend-sep"></div>
+    <div class="legend-note">
+      リング半径 = ホップ距離<br>
+      ノード高さ = log(プレフィックス数)<br>
+      波紋 = BGP 伝播イメージ
+    </div>
+  </div>
+
+  <!-- ヒント：右下 -->
+  <div id="hint">
+    ドラッグ: 回転　スクロール: ズーム<br>
+    [R] カメラリセット　[B] ブルーム切替
+  </div>
+
+  <script type="module" src="src/rings.js"></script>
+</body>
+</html>

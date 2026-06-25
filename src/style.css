@@ -1,0 +1,152 @@
+/* ---- Reset & Base ---------------------------------------------------- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #000510;
+  overflow: hidden;
+  font-family: 'Space Mono', 'Courier New', monospace;
+  color: #4499ff;
+}
+
+canvas { display: block; }
+
+/* ---- Loading screen -------------------------------------------------- */
+#loading {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: #000510;
+  z-index: 100;
+  transition: opacity 0.8s ease;
+}
+
+.loading-title {
+  font-size: 2rem;
+  letter-spacing: 0.3em;
+  color: #4499ff;
+  text-shadow: 0 0 24px #4499ffaa;
+  margin-bottom: 0.4rem;
+}
+
+.loading-subtitle {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: #224466;
+  margin-bottom: 1.4rem;
+}
+
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 2px solid #112244;
+  border-top-color: #4499ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 12px #4499ff66;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#status-msg {
+  font-size: 0.75rem;
+  color: #4499ff;
+  letter-spacing: 0.05em;
+}
+
+#status-detail {
+  font-size: 0.65rem;
+  color: #224466;
+  min-height: 1em;
+}
+
+/* ---- HUD：左上 -------------------------------------------------------- */
+#hud {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.hud-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.72rem;
+}
+
+.hud-label {
+  color: #224466;
+  width: 6em;
+}
+
+#hud span:not(.hud-label) {
+  color: #4499ff;
+  text-shadow: 0 0 8px #4499ff88;
+}
+
+.hud-value-small {
+  font-size: 0.65rem;
+  color: #335577 !important;
+}
+
+/* ---- Legend：左下 ----------------------------------------------------- */
+#legend {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  pointer-events: none;
+  font-size: 0.68rem;
+  line-height: 1.1;
+}
+
+.legend-title {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: #224466;
+  margin-bottom: 0.6rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.45rem;
+  color: #556677;
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.legend-sep {
+  height: 1px;
+  background: #112233;
+  margin: 0.7rem 0;
+}
+
+.legend-note {
+  font-size: 0.6rem;
+  color: #223344;
+  line-height: 1.6;
+}
+
+/* ---- Hint：右下 ------------------------------------------------------- */
+#hint {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  font-size: 0.62rem;
+  color: #224466;
+  text-align: right;
+  pointer-events: none;
+  line-height: 1.8;
+}

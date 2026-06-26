@@ -10,12 +10,18 @@
   <script type="importmap">
   {
     "imports": {
-      "three":           "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
-      "three/addons/":   "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/",
-      "d3-force-3d":     "https://esm.sh/d3-force-3d@3.0.5"
+      "three":         "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/"
     }
   }
   </script>
+  <!-- CDN モジュールを並列プリフェッチ（ウォーターフォール解消） -->
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js" />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/controls/OrbitControls.js" />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/postprocessing/EffectComposer.js" />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/postprocessing/RenderPass.js" />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/postprocessing/UnrealBloomPass.js" />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/postprocessing/OutputPass.js" />
   <style>
     /* 年輪ページ専用の追加スタイル */
     #hud .center-as {

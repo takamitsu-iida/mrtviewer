@@ -267,8 +267,12 @@ function buildNodes(scene, nodes, posMap, centerId) {
 // ============================================================
 
 function buildEdges(scene, edges, nodes, posMap) {
-  const hopOf = {};
-  nodes.forEach(n => { hopOf[n.id] = n.hop ?? 0; });
+  const hopOf    = {};
+  const regionOf = {};  // O(1) lookup（以前は edges ループ内で nodes.find() → O(n×m)）
+  nodes.forEach(n => {
+    hopOf[n.id]    = n.hop ?? 0;
+    regionOf[n.id] = n.region ?? 'PRIVATE';
+  });
 
   const positions = [];
   const colors    = [];
@@ -281,7 +285,7 @@ function buildEdges(scene, edges, nodes, posMap) {
 
     positions.push(s.x, s.y, s.z, t.x, t.y, t.z);
     // エッジ色: 源ノード色を薄く
-    const srcRegion = nodes.find(n => n.id === e.source)?.region ?? 'PRIVATE';
+    const srcRegion = regionOf[e.source] ?? 'PRIVATE';
     const col = REGION_COLORS[srcRegion] ?? REGION_COLORS.PRIVATE;
     colors.push(col.r * 0.18, col.g * 0.18, col.b * 0.18,
                 col.r * 0.08, col.g * 0.08, col.b * 0.08);
